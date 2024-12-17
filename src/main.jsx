@@ -5,27 +5,27 @@ import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignInPage from "./auth/sign-in";
 import Dashboard from "./pages/dashboard";
-import { ClerkProvider } from '@clerk/clerk-react'
+import { ClerkProvider } from "@clerk/clerk-react";
 import Home from "./pages/home";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
+  throw new Error("Missing Publishable Key");
 }
 
 const router = createBrowserRouter([
   {
     element: <App />,
-    children:[
+    children: [
       {
-        path:"/",
-        element:<Home/>
+        path: "/dashboard",
+        element: <Dashboard />,
       },
-      {
-        path:"/dashboard",
-        element:<Dashboard/>
-      }
-    ]
+    ],
+  },
+  {
+    path: "/",
+    element: <Home />,
   },
   {
     path: "/auth/sign-in",
@@ -35,8 +35,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-     <RouterProvider router={router} />
-     </ClerkProvider>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <RouterProvider router={router} />
+    </ClerkProvider>
   </StrictMode>
 );
