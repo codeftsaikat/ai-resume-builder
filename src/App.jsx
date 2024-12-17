@@ -1,12 +1,17 @@
-import { Button } from "./components/ui/button"
-
+import { useUser } from "@clerk/clerk-react"
+import { Navigate, Outlet } from "react-router-dom"
 
 function App() {
+const {user,isLoaded,isSignedIn} = useUser();
 
+if (!isSignedIn&&isLoaded) {
+  return(
+    <Navigate to={"/auth/sign-in"}/>
+  )
+}
   return (
     <>
-      <h1 className='text-center'>Vite + React</h1>
-      <Button>Click Me</Button>
+      <Outlet/>
     </>
   )
 }
